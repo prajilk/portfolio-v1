@@ -51,6 +51,12 @@ export default function Contact() {
     async function handleSubmit(e) {
         setLoading(true);
         e.preventDefault();
+
+        if (name === "" || email === "" || message === "") {
+            setLoading(false);
+            return toast.error("Please fill all the fields");
+        }
+
         try {
             await fetch(
                 `https://api-formease.vercel.app/form?api_key=${
@@ -67,6 +73,9 @@ export default function Contact() {
                 }
             );
             toast.success("Message sent successfully.");
+            setName("");
+            setEmail("");
+            setMessage("");
         } catch {
             toast.error("Unable sent message!");
         } finally {
@@ -96,7 +105,7 @@ export default function Contact() {
                         ref={body}
                         className="mt-4 max-w-md translate-y-10 text-body-2 text-accent-100 opacity-0 2xl:max-w-2xl 2xl:text-4xl"
                     >
-                        I am currently not available for freelance work. I am
+                        I am currently available for freelance work. I am
                         accepting new projects starting from{" "}
                         {new Intl.DateTimeFormat("en-US", {
                             month: "long",
@@ -133,7 +142,7 @@ export default function Contact() {
                             <div className="relative z-0">
                                 <input
                                     required
-                                    type="text"
+                                    type="email"
                                     name="email"
                                     id="email"
                                     className="peer block w-full appearance-none border-0 border-b border-accent-100 bg-transparent px-0 py-2.5 focus:outline-none focus:ring-0"
