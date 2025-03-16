@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import profileImg from "/src/assets/images/profile.jpg";
+import profileImg from "/src/assets/images/profile.webp";
 import { ScrollTrigger } from "gsap/all";
 import { gsap } from "gsap";
 import Heading from "../ui/Heading";
@@ -58,7 +58,7 @@ export default function About() {
                         </h3>
                         <p
                             ref={body}
-                            className=" translate-y-10 text-body-1 opacity-0 2xl:text-4xl"
+                            className="translate-y-10 text-body-1  opacity-0 2xl:text-4xl"
                         >
                             I'm a skilled Full stack developer with expertise in
                             React, Next.js, Node.js, Express, PostgreSQL and

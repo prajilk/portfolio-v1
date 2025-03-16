@@ -5,8 +5,36 @@ import { gsap } from "gsap";
 import Heading from "../ui/Heading";
 import { toast } from "sonner";
 
+function getISTTime() {
+    // Get current time in UTC
+    const currentTimeUTC = new Date();
+
+    // Convert to IST (UTC+5:30)
+    const ISTOffset = 5.5 * 60 * 60 * 1000; // Offset in milliseconds
+    const currentTimeIST = new Date(currentTimeUTC.getTime() + ISTOffset);
+
+    // Format the time
+    let hours = currentTimeIST.getUTCHours();
+    let minutes = currentTimeIST.getUTCMinutes();
+    let seconds = currentTimeIST.getUTCSeconds();
+    let meridiem = hours >= 12 ? "PM" : "AM";
+
+    // Convert hours to 12-hour format
+    hours = hours % 12;
+    hours = hours ? hours : 12; // 12 AM is represented as 12, not 0
+
+    // Add leading zeros to minutes and seconds if needed
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+
+    // Construct the time string
+    const timeString = `${hours}:${minutes}:${seconds} ${meridiem}`;
+
+    return timeString;
+}
+
 export default function Contact() {
-    const [time, setTime] = useState(new Date().toLocaleTimeString());
+    const [time, setTime] = useState();
 
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
@@ -44,7 +72,7 @@ export default function Contact() {
 
     useEffect(() => {
         setInterval(() => {
-            setTime(new Date().toLocaleTimeString());
+            setTime(getISTTime());
         }, 1000);
     });
 
